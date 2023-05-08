@@ -8,6 +8,7 @@ import ParticlesBg from 'particles-bg';
 import React, { Component } from 'react';
 import SampleImages from './Components/SampleImages/SampleImages';
 import SignIn from './Components/SignIn/SignIn';
+import Register from './Components/Register/Register';
 
 class App extends Component {
 
@@ -17,7 +18,7 @@ class App extends Component {
       input: '',
       imageURL: '',
       box: {},
-      route: "signin",
+      route: "signIn",
     } 
   }
 
@@ -83,8 +84,8 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
-  onSingIn = () => {
-    this.setState({route: "app"});
+  onRouteChange = (route) => {
+    this.setState({route: route});
   }
 
   
@@ -125,20 +126,24 @@ class App extends Component {
       <div className="App">
           
           <ParticlesBg color="#ffffff" num={100} config={config} type="cobweb" bg={true} />
-          <Navigation />
+          <Navigation onRouteChange={this.onRouteChange} />
 
-          { this.state.route === "signin"
-            ? <SignIn onSignIn={this.onSingIn}/>
-            : <div>
-              <Logo/>
-              <Rank/>
-              <ImageLinkForm 
-                onInputChange={this.onInputChange} 
-                onButtonSubmit={this.onButtonSubmit}
-              />
-              <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
-              <SampleImages />
-            </div>
+          { this.state.route === "home"
+            ? <div>
+                <Logo/>
+                <Rank/>
+                <ImageLinkForm 
+                  onInputChange={this.onInputChange} 
+                  onButtonSubmit={this.onButtonSubmit}
+                />
+                <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
+                <SampleImages />
+              </div>
+            : (
+              this.state.route === "signIn"
+              ? <SignIn onRouteChange={this.onRouteChange}/>
+              : <Register onRouteChange={this.onRouteChange}/>
+            )            
           } 
       </div>
     );
