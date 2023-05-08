@@ -1,0 +1,12 @@
+.bb {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.b--black-20 {
+    border-color: rgba(0, 0, 0, .2);
+}
+
+.fw6 {
+    font-weight: 600;
+}

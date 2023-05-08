@@ -6,7 +6,7 @@ import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm';
 import Rank from './Components/Rank/Rank';
 import ParticlesBg from 'particles-bg';
 import React, { Component } from 'react';
-
+import SampleImages from './Components/SampleImages/SampleImages';
 
 class App extends Component {
 
@@ -127,6 +127,7 @@ class App extends Component {
             onButtonSubmit={this.onButtonSubmit}
           />
           <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
+          <SampleImages />
 
       </div>
     );
