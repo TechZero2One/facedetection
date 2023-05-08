@@ -7,6 +7,7 @@ import Rank from './Components/Rank/Rank';
 import ParticlesBg from 'particles-bg';
 import React, { Component } from 'react';
 import SampleImages from './Components/SampleImages/SampleImages';
+import SignIn from './Components/SignIn/SignIn';
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
       input: '',
       imageURL: '',
       box: {},
+      route: "signin",
     } 
   }
 
@@ -61,8 +63,7 @@ class App extends Component {
     const inputImage = document.getElementById('inputImage');
     const width = Number(inputImage.width);
     const height = Number(inputImage.height);
-    //console.log(width, height);
-    //console.log(clarifiFace);
+   
     return {
       leftCol: clarifiFace.left_col * width,
       topRow: clarifiFace.top_row * height,
@@ -81,6 +82,11 @@ class App extends Component {
   onInputChange = (event) => {
     this.setState({input: event.target.value});
   }
+
+  onSingIn = () => {
+    this.setState({route: "app"});
+  }
+
   
   onButtonSubmit = (event) => {
     this.setState({imageURL: this.state.input});
@@ -117,18 +123,23 @@ class App extends Component {
       
     return (
       <div className="App">
+          
           <ParticlesBg color="#ffffff" num={100} config={config} type="cobweb" bg={true} />
-          {/* <ParticlesBg color="#ffffff" num={100} type="cobweb" bg={true} /> */}
           <Navigation />
-          <Logo/>
-          <Rank/>
-          <ImageLinkForm 
-            onInputChange={this.onInputChange} 
-            onButtonSubmit={this.onButtonSubmit}
-          />
-          <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
-          <SampleImages />
 
+          { this.state.route === "signin"
+            ? <SignIn onSignIn={this.onSingIn}/>
+            : <div>
+              <Logo/>
+              <Rank/>
+              <ImageLinkForm 
+                onInputChange={this.onInputChange} 
+                onButtonSubmit={this.onButtonSubmit}
+              />
+              <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
+              <SampleImages />
+            </div>
+          } 
       </div>
     );
   } 
