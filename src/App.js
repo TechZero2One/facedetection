@@ -61,16 +61,22 @@ class App extends Component {
     const inputImage = document.getElementById('inputImage');
     const width = Number(inputImage.width);
     const height = Number(inputImage.height);
-    console.log(width, height);
-    console.log(clarifiFace);
+    //console.log(width, height);
+    //console.log(clarifiFace);
     return {
       leftCol: clarifiFace.left_col * width,
       topRow: clarifiFace.top_row * height,
       rightCol: width - (clarifiFace.right_col * width),
       bottomRow: height - (clarifiFace.bottom_row * height)
-    }
-
   }
+}
+
+  displayFaceBox = (box) => {
+    //console.log(box);
+    this.setState({box: box});
+  }
+
+
  
   onInputChange = (event) => {
     this.setState({input: event.target.value});
@@ -82,14 +88,10 @@ class App extends Component {
 
     fetch("https://api.clarifai.com/v2/models/face-detection/outputs", requestOptions)
     .then(response => {
-      
       response.json().then(data => {
-        this.calculateFaceLocation(data);
-        
+        this.displayFaceBox(this.calculateFaceLocation(data));
       })
-      
     })
-    //.then(result => console.log(result))
     .catch(error => console.log('error', error));
 
   }
@@ -124,7 +126,7 @@ class App extends Component {
             onInputChange={this.onInputChange} 
             onButtonSubmit={this.onButtonSubmit}
           />
-          <FaceRecognition imageURL={this.state.imageURL}/>
+          <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
 
       </div>
     );
