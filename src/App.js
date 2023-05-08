@@ -18,7 +18,8 @@ class App extends Component {
       input: '',
       imageURL: '',
       box: {},
-      route: "signIn",
+      route: "signin",
+      isSignedIn: false
     } 
   }
 
@@ -85,6 +86,14 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
+    
+    
+    if (route === "signout"){
+      this.setState({isSignedIn: false});
+    }else if (route === "home"){ 
+       this.setState({isSignedIn: true});
+    }
+    
     this.setState({route: route});
   }
 
@@ -105,6 +114,9 @@ class App extends Component {
 
 
   render() {
+
+     const {box, imageURL, route, isSignedIn} = this.state;
+
      const config = {
       particles: {
         color: {
@@ -126,21 +138,22 @@ class App extends Component {
       <div className="App">
           
           <ParticlesBg color="#ffffff" num={100} config={config} type="cobweb" bg={true} />
-          <Navigation onRouteChange={this.onRouteChange} />
+          <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+          <Logo/>
 
-          { this.state.route === "home"
+          { route === "home"
             ? <div>
-                <Logo/>
+                
                 <Rank/>
                 <ImageLinkForm 
                   onInputChange={this.onInputChange} 
                   onButtonSubmit={this.onButtonSubmit}
                 />
-                <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
+                <FaceRecognition box={box} imageURL={imageURL}/>
                 <SampleImages />
               </div>
             : (
-              this.state.route === "signIn"
+              route === "signin"
               ? <SignIn onRouteChange={this.onRouteChange}/>
               : <Register onRouteChange={this.onRouteChange}/>
             )            
