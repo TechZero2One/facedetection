@@ -26,7 +26,8 @@ Replace `Diffusion-version.zip` with the actual file name, and `/opt/diffusion` 
 **Configure Diffusion**: Change the directory to the Diffusion installation folder and open the `etc/Server.xml` configuration file using a text editor, like nano or vim. For example:
 
 ```
-    cd /opt/diffusion\nnano etc/Server.xml
+    cd /opt/diffusion
+    nano etc/Server.xml
 ```
 
 In the configuration file, find the `interface-address` element and replace its value with your Ubuntu server's local IP address, which will make the Diffusion server accessible from other computers within the same network.
